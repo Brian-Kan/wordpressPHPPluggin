@@ -50,16 +50,28 @@ if( !function_exists('add_action')){
 
 class MasonryCarouselPlugin {
 
+    function __construct() {
+        add_action('init', array( $this, 'custom_post_type'));
+    }
     function activate() {
-        echo 'The plugin was activated'
+        // generated a CPT
+        $this->custom_post_type();
+        // flush rewrite rules
+        flush_rewrite_rules();
     }
 
     function deactivate() {
-        echo 'The plugin was activated'
+        // flush rewrite rules
     }
 
     function uninstall() {
+        // delete CPT
+        // delete all the plugin data from the DB
+        // Create uninstall.php
+    }
 
+    function custom_post_type() {
+        register_post_type('book', ['public' => true, 'label' => 'Books']);
     }
     
 }
@@ -79,3 +91,4 @@ register_activation_hook( __FILE__, array($masonryCarouselPlugin, 'activate') );
 register_deactivation_hook( __FILE__, array($masonryCarouselPlugin, 'deactivate') );
 
 // uninstall
+// Create uninstall.php
